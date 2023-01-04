@@ -30,11 +30,12 @@ class CreateTables:
             Log.logger.error('[DB] Could not create table users. Reason: ', e)
             return False
 
-    async def lost_animals(self) -> bool:
+    async def create_ads_table(self) -> bool:
         command = (
-            "CREATE TABLE IF NOT EXISTS lost_animals(\
+            "CREATE TABLE IF NOT EXISTS ads(\
             id SERIAL,\
-            owner BIGINT,\
+            type VARCHAR(8),\
+            owner BIGINT NOT NULL,\
             location TEXT,\
             date DATE,\
             photo1 TEXT,\
@@ -45,43 +46,20 @@ class CreateTables:
             description TEXT,\
             chip BOOL,\
             found BOOL,\
-            found_reason VARCHAR(32)\
-            CONSTRAINT fk_owner_lost FOREIGN KEY(owner) REFERENCES users(id)\
+            found_reason VARCHAR(32),\
+            CONSTRAINT fk_owner FOREIGN KEY(owner) REFERENCES users(tlg_id)\
             )"
         )
         try:
             async with self._connection as conn:
                 await conn.execute(command)
-            Log.logger.info('[DB] Table lost_animals has been created')
+            Log.logger.info('[DB] Table ads has been created')
             return True
         except Exception as e:
-            Log.logger.error('[DB] Could not create table lost_animals. Reason:  ', e)
+            Log.logger.error('[DB] Could not create table ads. Reason ', e)
             return False
 
-    async def found_animals(self) -> bool:
-        command = (
-            "CREATE TABLE IF NOT EXISTS found_animals(\
-                id SERIAL,\
-                owner BIGINT,\
-                location TEXT,\
-                date DATE,\
-                photo1 TEXT,\
-                photo2 TEXT,\
-                photo3 TEXT,\
-                name VARCHAR(64) NOT NULL,\
-                species VARCHAR(16) NOT NULL,\
-                description TEXT,\
-                chip BOOL,\
-                found BOOL,\
-                found_reason VARCHAR(32)\
-                CONSTRAINT fk_owner_found FOREIGN KEY(owner) REFERENCES users(id)\
-                )"
-        )
-        try:
-            async with self._connection as conn:
-                await conn.execute(command)
-            Log.logger.info('[DB] Table found_animals has been created')
-            return True
-        except Exception as e:
-            Log.logger.error('[DB] Could not create table found_animals. Reason: ', e)
-            return False
+
+# = CreateTables()
+#asyncio.run(c.create_users_table())
+#asyncio.run(c.create_ads_table())

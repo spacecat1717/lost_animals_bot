@@ -83,9 +83,9 @@ class User:
 
 
 
-#u = User(tlg_id=22222, username='test user1')
-#asyncio.run(u.change_admin(True))
-#print(u.is_admin)
+#u = User(tlg_id=222545, username='test user2')
+#asyncio.run(u.save_user())
+
 
 
 

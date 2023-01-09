@@ -1,7 +1,6 @@
 import asyncio
 import asynctest
 
-from database.connection import Connection
 from database.user.user import User
 
 
@@ -9,7 +8,6 @@ class DbUserTestCase(asynctest.TestCase):
 
     def setUp(self) -> None:
         self.loop = asyncio.get_event_loop()
-        self.connection = Connection()
         self.user = User(tlg_id=22222, username='test user1')
 
     async def test_set_is_admin_attr(self) -> None:
@@ -24,3 +22,4 @@ class DbUserTestCase(asynctest.TestCase):
         await self.user.change_ban(False)
         self.assertFalse(self.user.is_banned)
 
+    #TODO: add corner cases

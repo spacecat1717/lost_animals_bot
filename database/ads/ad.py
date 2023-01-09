@@ -92,6 +92,7 @@ class Ad:
     found = property(_get_found, _set_found)
     found_reason = property(_get_found_reason, _set_found_reason)
 
+#TODO: find out how to get id for existing ad
     async def create_ad(self) -> bool:
         """Saving data in DB"""
         command = (
@@ -141,8 +142,8 @@ class Ad:
             return False
 
 
-a = Ad(type='lost', species='Other', name='random rat ', description='test descr 6', chip=False,
-      location='23.23563.23563,4526.265', owner_id=222545, photo1_path='/home/spacecat/CODE/',
-       photo2_path='/home/spacecat/CODE/', photo3_path='/home/spacecat/CODE/', creation_date=date.today())
-asyncio.run(a.create_ad())
-print(a.ad_id)
+#a = Ad(type='lost', species='Other', name='random rat ', description='test descr 6', chip=False,
+        #      location='23.23563.23563,4526.265', owner_id=222545, photo1_path='/home/spacecat/CODE/',
+       #photo2_path='/home/spacecat/CODE/', photo3_path='/home/spacecat/CODE/', creation_date=date.today())
+#asyncio.run(a.create_ad())
+#print(a.ad_id)

@@ -11,7 +11,7 @@ from database.connection import Connection
 class Ad:
     def __init__(self, type: str, owner_id: int, location: str, creation_date: date, photo1_path: str,
                  photo2_path: str, photo3_path: str, name: str, species: str, description: str, chip: bool,
-                 found=False, found_reason='', ad_id=0) -> None:
+                 found=False, found_reason='', ad_id=None) -> None:
         self._connection = Connection()
         self._ad_id = ad_id
         self._type = type
@@ -92,8 +92,7 @@ class Ad:
     found = property(_get_found, _set_found)
     found_reason = property(_get_found_reason, _set_found_reason)
 
-#TODO: find out how to get id for existing ad
-    async def create_ad(self) -> bool:
+    async def save_ad(self) -> bool:
         """Saving data in DB"""
         command = (
             "INSERT INTO ads(type, owner, location, date, photo1, photo2, photo3, name, species, description,\
@@ -145,5 +144,5 @@ class Ad:
 #a = Ad(type='lost', species='Other', name='random rat ', description='test descr 6', chip=False,
         #      location='23.23563.23563,4526.265', owner_id=222545, photo1_path='/home/spacecat/CODE/',
        #photo2_path='/home/spacecat/CODE/', photo3_path='/home/spacecat/CODE/', creation_date=date.today())
-#asyncio.run(a.create_ad())
+#asyncio.run(a.save_ad())
 #print(a.ad_id)

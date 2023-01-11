@@ -1,5 +1,6 @@
 """Every user is instance of User class"""
 import asyncio
+import logging
 
 from config.log_config import Logger as Log
 from database.connection import Connection
@@ -51,6 +52,20 @@ class User:
             return True
         except Exception as e:
             Log.logger.error('[DB] Could not save user %r in DB. Reason: %r', self.tlg_id, e)
+            return False
+
+    async def delete_user(self) -> bool:
+        """Deletes user from DB"""
+        command = (
+            "DELETE FROM users WHERE tlg_id=$1"
+        )
+        try:
+            async with self._connection as conn:
+                await conn.execute(command, self.tlg_id)
+            Log.logger.info('[DB] User %r has been deleted', self.tlg_id)
+            return True
+        except Exception as e:
+            Log.logger.error('[DB] Could not delete user %r. Reason: %r', self.tlg_id, e)
             return False
 
     async def change_ban(self, value: bool) -> bool:

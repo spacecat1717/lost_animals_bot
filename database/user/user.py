@@ -1,16 +1,18 @@
 """Every user is instance of User class"""
 import asyncio
-import logging
+
+from datetime import date
 
 from config.log_config import Logger as Log
 from database.connection import Connection
 
 class User:
-    def __init__(self, tlg_id: int, username: str, is_admin=False, is_banned=False) -> None:
+    def __init__(self, tlg_id: int, username: str, date: date, is_admin=False, is_banned=False) -> None:
         self._tlg_id = tlg_id
         self._username = username
         self._is_admin = is_admin
         self._is_banned = is_banned
+        self._date = date
         self._connection = Connection()
 
     """Getters/Setters below"""
@@ -39,15 +41,20 @@ class User:
 
     is_banned = property(_get_is_banned, _set_is_banned)
 
+    def _get_date(self) -> date:
+        return self._date
+
+    date = property(_get_date)
+
     async def save_user(self) -> bool:
         """This method saves User data in DB"""
         command = (
-            "INSERT INTO users(tlg_id, username, is_banned, is_admin) VALUES(\
-            $1, $2, $3, $4)"
+            "INSERT INTO users(tlg_id, username, is_banned, is_admin, date) VALUES(\
+            $1, $2, $3, $4, $5)"
         )
         try:
             async with self._connection as conn:
-                await conn.execute(command, self.tlg_id, self.username, self.is_banned, self.is_admin)
+                await conn.execute(command, self.tlg_id, self.username, self.is_banned, self.is_admin, self.date)
             Log.logger.info('[DB] User %r has been saved in DB', self.tlg_id)
             return True
         except Exception as e:

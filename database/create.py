@@ -18,6 +18,7 @@ class CreateTables:
             username VARCHAR(64),\
             is_admin BOOL,\
             is_banned BOOL,\
+            date DATE,\
             CONSTRAINT unique_tlg_id UNIQUE (tlg_id)\
             )"
         )

@@ -48,7 +48,7 @@ class CreateTables:
             chip BOOL,\
             found BOOL,\
             found_reason VARCHAR(32),\
-            CONSTRAINT fk_owner FOREIGN KEY(owner) REFERENCES users(tlg_id)\
+            CONSTRAINT fk_owner FOREIGN KEY(owner) REFERENCES users(tlg_id) ON DELETE CASCADE\
             )"
         )
         try:
@@ -61,6 +61,6 @@ class CreateTables:
             return False
 
 
-# = CreateTables()
+c = CreateTables()
 #asyncio.run(c.create_users_table())
 #asyncio.run(c.create_ads_table())

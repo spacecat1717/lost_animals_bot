@@ -19,7 +19,7 @@ class UserManager:
         user = await self._create_user_obj(user_id, username, is_admin=False, is_banned=False, date=date.today())
         if not await user.save_user():
             return False
-        return True
+        return user
 
     @staticmethod
     async def _create_user_obj(user_id: int, username: str, is_admin: bool, is_banned: bool, date: date) -> User:
@@ -46,6 +46,6 @@ class UserManager:
             Log.logger.error('[DB] [UserManager] Try to execute data of user %r failed. Reason: %r', user_id, e)
             return False
 
-m = UserManager()
-user = asyncio.run(m.get_user(17171717))
-print(user.date)
+#m = UserManager()
+#user = asyncio.run(m.create_user(788445, 'test user 2'))
+#print(user.date)

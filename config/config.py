@@ -18,6 +18,8 @@ TLG_OWNER = os.getenv('TLG_OWNER')
 BOT = Bot(token=TLG_TOKEN)
 DISP = Dispatcher(BOT, storage=MemoryStorage())
 
+"""Yandex geocoder API token"""
+MAP_TOKEN = os.getenv('MAP_TOKEN')
 
 """Const"""
 #species list for ads' creation

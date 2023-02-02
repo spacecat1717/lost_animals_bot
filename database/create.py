@@ -37,6 +37,9 @@ class CreateTables:
             id SERIAL,\
             type VARCHAR(8),\
             owner BIGINT NOT NULL,\
+            city VARCHAR(128),\
+            district VARCHAR(128),\
+            district VARCHAR(128),\
             location TEXT,\
             date DATE,\
             photo1 TEXT,\

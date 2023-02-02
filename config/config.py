@@ -18,6 +18,7 @@ TLG_OWNER = os.getenv('TLG_OWNER')
 BOT = Bot(token=TLG_TOKEN)
 DISP = Dispatcher(BOT, storage=MemoryStorage())
 
+
 """Const"""
 #species list for ads' creation
 SPECIES = ['Кошка', 'Собака', 'Другое']

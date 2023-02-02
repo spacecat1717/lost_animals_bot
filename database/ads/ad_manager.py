@@ -65,4 +65,4 @@ m = AdManager()
 #                        location='23.23563.23563,4526.265', owner_id=252526, photo1_path='/home/spacecat/CODE/',
 #                        photo2_path='/home/spacecat/CODE/', photo3_path='/home/spacecat/CODE/'))
 #lst = asyncio.run(m.get_user_ads(252526))
-#print(lst[0].name)
+#print(lst[-1].found)

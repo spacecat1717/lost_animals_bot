@@ -9,13 +9,16 @@ from database.connection import Connection
 
 
 class Ad:
-    def __init__(self, type: str, owner_id: int, location: str, creation_date: date, photo1_path: str,
-                 photo2_path: str, photo3_path: str, name: str, species: str, description: str, chip: bool,
+    def __init__(self, type: str, owner_id=0, city='', district='', location='',
+                 creation_date=date.today(), photo1_path='', species='',
+                 photo2_path='', photo3_path='', name='', description='', chip=False,
                  found=False, found_reason='', ad_id=None) -> None:
         self._connection = Connection()
         self._ad_id = ad_id
         self._type = type
         self._owner_id = owner_id
+        self._city = city
+        self._district = district
         self._location = location
         self._creation_date = creation_date
         self._photo_path1 = photo1_path
@@ -42,11 +45,23 @@ class Ad:
     def _get_owner_id(self) -> int:
         return self._owner_id
 
+    def _set_owner_id(self, value: int) -> None:
+        self._owner_id = value
+
     def _get_type(self) -> str:
         return self._type
 
+    def _get_city(self) -> str:
+        return self._city
+
+    def _set_city(self, value: str) -> None:
+        self._city = value
+
     def _get_location(self) -> str:
         return self._location
+
+    def _set_location(self, value: str) -> None:
+        self._location = value
 
     def _get_creation_date(self) -> date:
         return self._creation_date
@@ -54,17 +69,47 @@ class Ad:
     def _get_photos(self) -> tuple:
         return self._photo_path1, self._photo_path2, self._photo_path3
 
+    def _get_photo_1(self) -> str:
+        return self._photo_path1
+
+    def _set_photo1(self, path1: str) -> None:
+        self._photo_path1 = path1
+
+    def _get_photo_2(self) -> str:
+        return self._photo_path2
+
+    def _set_photo2(self, path2: str) -> None:
+        self._photo_path2 = path2
+
+    def _get_photo_3(self) -> str:
+        return self._photo_path3
+
+    def _set_photo3(self, path3: str) -> None:
+        self._photo_path3 = path3
+
     def _get_name(self) -> str:
         return self._name
 
-    def _get_speceies(self) -> str:
+    def _set_name(self, value: str) -> None:
+        self._name = value
+
+    def _get_species(self) -> str:
         return self._species
+
+    def _set_species(self, value: str) -> None:
+        self._species = value
 
     def _get_description(self) -> str:
         return self._description
 
+    def _set_description(self, value: str) -> None:
+        self._description = value
+
     def _get_chip(self) -> bool:
         return self._chip
+
+    def _set_chip(self, value: bool) -> None:
+        self._chip = value
 
     def _get_found(self) -> bool:
         return self._found
@@ -80,23 +125,26 @@ class Ad:
 
     ad_id = property(_get_ad_id, _set_ad_id)
     type = property(_get_type)
-    owner_id = property(_get_owner_id)
+    owner_id = property(_get_owner_id, _set_owner_id)
     type = property(_get_type)
-    location = property(_get_location)
+    location = property(_get_location, _set_location)
     creation_date = property(_get_creation_date)
+    photo1 = property(_get_photo_1, _set_photo1)
+    photo2 = property(_get_photo_2, _set_photo2)
+    photo3 = property(_get_photo_3, _set_photo3)
     photos = property(_get_photos)
-    name = property(_get_name)
-    species = property(_get_speceies)
-    description = property(_get_description)
-    chip = property(_get_chip)
+    name = property(_get_name, _set_name)
+    species = property(_get_species, _set_species)
+    description = property(_get_description, _set_description)
+    chip = property(_get_chip, _set_chip)
     found = property(_get_found, _set_found)
     found_reason = property(_get_found_reason, _set_found_reason)
 
     async def save_ad(self) -> bool:
         """Saving data in DB"""
         command = (
-            "INSERT INTO ads(type, owner, location, date, photo1, photo2, photo3, name, species, description,\
-            chip, found, found_reason) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING id"
+            "INSERT INTO ads(type, owner, city, district, location, date, photo1, photo2, photo3, name, species, description,\
+            chip, found, found_reason) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING id"
         )
         try:
             async with self._connection as conn:

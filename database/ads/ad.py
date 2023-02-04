@@ -57,6 +57,12 @@ class Ad:
     def _set_city(self, value: str) -> None:
         self._city = value
 
+    def _get_district(self) -> str:
+        return self._district
+
+    def _set_district(self, value: str) -> None:
+        self._district = value
+
     def _get_location(self) -> str:
         return self._location
 
@@ -127,6 +133,8 @@ class Ad:
     type = property(_get_type)
     owner_id = property(_get_owner_id, _set_owner_id)
     type = property(_get_type)
+    city = property(_get_city, _set_city)
+    district = property(_get_district, _set_district)
     location = property(_get_location, _set_location)
     creation_date = property(_get_creation_date)
     photo1 = property(_get_photo_1, _set_photo1)
@@ -148,7 +156,8 @@ class Ad:
         )
         try:
             async with self._connection as conn:
-                values = (self._type, self.owner_id, self.location, self.creation_date, self.photos[0], self.photos[1],
+                values = (self._type, self.owner_id, self.city, self.district, self.location, self.creation_date,
+                          self.photos[0], self.photos[1],
                           self.photos[2], self.name, self.species, self.description, self.chip, self.found,
                           self.found_reason)
                 res = await conn.fetch(command, *values)

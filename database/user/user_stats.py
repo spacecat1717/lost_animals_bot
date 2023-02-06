@@ -21,7 +21,7 @@ class UserStats:
         )
         async with self._connection as conn:
             res = await conn.fetch(command)
-            Log.logger.info('[DB] [UserStats] Users quantity for all the time has been executed')
+            Log.logger.info('[DB] [UserStats] Users quantity for all the time received')
             return res[0][0]
 
     async def last_users_quantity(self) -> int or False:
@@ -36,7 +36,7 @@ class UserStats:
                 for d in date_list:
                     res = await conn.fetch(command, d)
                     quantity += res[0][0]
-            Log.logger.info('[DB] [UserStats] quantoty of last users has been gotten')
+            Log.logger.info('[DB] [UserStats] quantoty of last users received')
             return quantity
         except Exception as e:
             Log.logger.error('[DB] [UserStats] Could not execute quantity of last users. Reason: %r', e)
@@ -71,7 +71,7 @@ class UserStats:
                     users_data.extend(res)
         for u in users_data:
             users.append(User(tlg_id=u[1], username=u[2], is_admin=u[3], is_banned=u[4], date=u[5]))
-        Log.logger.info('[DB] [UserStats] List of last users has been gotten')
+        Log.logger.info('[DB] [UserStats] List of last users received')
         return users
 
     async def banned(self) -> List[User]:
@@ -84,7 +84,7 @@ class UserStats:
             users_data = await conn.fetch(command)
         for u in users_data:
             users.append(User(tlg_id=u[1], username=u[2], is_admin=u[3], is_banned=u[4], date=u[5]))
-        Log.logger.info('[DB] [UserStats] List of banned users has been gotten')
+        Log.logger.info('[DB] [UserStats] List of banned users received')
         return users
 
 #u = UserStats()

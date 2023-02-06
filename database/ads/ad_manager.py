@@ -76,7 +76,7 @@ class AdManager:
                                                 species=r[9], description=r[10], chip=r[11], found=r[12],
                                                 found_reason=r[13], city=r[14], district=r[15], ad_id=r[0])
             ads.append(ad)
-        Log.logger.info('[DB] [AdManager] by filters %r for user %r has been gotten', *filters, user_id)
+        Log.logger.info('[DB] [AdManager] by filters %r for user %r received', *filters, user_id)
         return ads
 
 

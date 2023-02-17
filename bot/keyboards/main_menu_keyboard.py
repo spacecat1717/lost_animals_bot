@@ -1,5 +1,6 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
+
 def kb_main_menu():
     main_kb = InlineKeyboardMarkup()
     about = InlineKeyboardButton(text='О проекте', callback_data='about')
@@ -15,3 +16,9 @@ def kb_main_menu():
     main_kb.row(all_lost, all_found)
     return main_kb
 
+
+def kb_return_to_menu():
+    back_kb = InlineKeyboardMarkup()
+    main_menu = InlineKeyboardButton(text='Вернуться в меню', callback_data='main_menu')
+    back_kb.add(main_menu)
+    return back_kb

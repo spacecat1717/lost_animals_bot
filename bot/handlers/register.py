@@ -1,6 +1,7 @@
 from aiogram import Dispatcher
 
-from bot.handlers import main_menu, info_handlers
+from bot.handlers.base_handlers import info_handlers, main_menu
+from bot.handlers.ad_handlers import user_ads_handlers
 from config.config import DISP
 
 
@@ -23,3 +24,6 @@ def faq_handler(dp: Dispatcher):
 def support_dev_handler(dp: Dispatcher):
     DISP.register_message_handler(info_handlers.support_dev)
 
+
+def usr_ads_handler(dp: Dispatcher):
+    DISP.register_message_handler(user_ads_handlers.usr_ads_list)

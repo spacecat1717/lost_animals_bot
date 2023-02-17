@@ -12,4 +12,5 @@ def bot_starter():
     register.about_handler(DISP)
     register.faq_handler(DISP)
     register.support_dev_handler(DISP)
+    register.usr_ads_handler(DISP)
     executor.start_polling(DISP, skip_updates=True)

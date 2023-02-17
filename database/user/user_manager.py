@@ -42,8 +42,8 @@ class UserManager:
             user = await self._create_user_obj(user_id=user_id, username=res[0][1],
                                                is_admin=res[0][2], is_banned=res[0][3], date=res[0][4])
             return user
-        except Exception as e:
-            Log.logger.error('[DB] [UserManager] Try to execute data of user %r failed. Reason: %r', user_id, e)
+        except IndexError:
+            Log.logger.error('[DB] [UserManager] User %r does not exists', user_id)
             return False
 
 #m = UserManager()

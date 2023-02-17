@@ -85,9 +85,9 @@ class AdManager:
 
 
 
-m = AdManager()
-#dog = asyncio.run(m.create_ad(type='found', species='Dog', name='Ben ', city='Moscow', district='Khimki', description='test descr 9', chip=False,
-#                        location='23.23563.23563,4526.265', owner_id=252526, photo1_path='/home/spacecat/CODE/',
+#m = AdManager()
+#cat = asyncio.run(m.create_ad(type='lost', species='Cat', name='Whiskers ', city='NY', district='Brooklin', description='I lost him(', chip=True,
+#                        location='23.23563.23563,4526.265', owner_id=312472285, photo1_path='/home/spacecat/CODE/Pet/lost_animals_bot/src/photos/sajad-nori-s1puI2BWQzQ-unsplash.jpg',
 #                        photo2_path='/home/spacecat/CODE/', photo3_path='/home/spacecat/CODE/'))
 #print(dog.name, dog.ad_id)
 #lst = asyncio.run(m.get_user_ads(252526))

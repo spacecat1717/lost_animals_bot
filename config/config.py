@@ -1,6 +1,7 @@
 import os
 
 from dotenv import load_dotenv
+from enum import Enum
 from aiogram import Dispatcher, Bot
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
@@ -22,6 +23,13 @@ DISP = Dispatcher(BOT, storage=MemoryStorage())
 MAP_TOKEN = os.getenv('MAP_TOKEN')
 
 """Const"""
+
+#TODO: I need to do something better here
+class Species(Enum):
+    CAT = 0
+    DOG = 1
+    OTHER = 2
+
 #species list for ads' creation
 SPECIES = ['Кошка', 'Собака', 'Другое']
 #reasons lists for ads' closing

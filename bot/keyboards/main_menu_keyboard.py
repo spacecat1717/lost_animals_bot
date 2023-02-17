@@ -1,6 +1,10 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
+#Maybe it's wrong but I don't want to write this button in every single keyboard
+MENU_KEY = InlineKeyboardButton(text='Вернуться в меню', callback_data='main_menu')
+
+
 def kb_main_menu():
     main_kb = InlineKeyboardMarkup()
     about = InlineKeyboardButton(text='О проекте', callback_data='about')
@@ -19,6 +23,5 @@ def kb_main_menu():
 
 def kb_return_to_menu():
     back_kb = InlineKeyboardMarkup()
-    main_menu = InlineKeyboardButton(text='Вернуться в меню', callback_data='main_menu')
-    back_kb.add(main_menu)
+    back_kb.add(MENU_KEY)
     return back_kb

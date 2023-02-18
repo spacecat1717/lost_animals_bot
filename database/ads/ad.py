@@ -175,10 +175,3 @@ class Ad:
         except Exception as e:
             Log.logger.error('[DB] Could not change found field for ad %r. Reason: %r', self.ad_id, e)
             return False
-
-
-#a = Ad(type='lost', species='Other', name='random rat ', description='test descr 6', chip=False,
-        #      location='23.23563.23563,4526.265', owner_id=222545, photo1_path='/home/spacecat/CODE/',
-       #photo2_path='/home/spacecat/CODE/', photo3_path='/home/spacecat/CODE/', creation_date=date.today())
-#asyncio.run(a.save_ad())
-#print(a.ad_id)

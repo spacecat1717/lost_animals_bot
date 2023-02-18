@@ -36,7 +36,7 @@ class UserStats:
                 for d in date_list:
                     res = await conn.fetch(command, d)
                     quantity += res[0][0]
-            Log.logger.info('[DB] [UserStats] quantoty of last users received')
+            Log.logger.info('[DB] [UserStats] quantity of last users received')
             return quantity
         except Exception as e:
             Log.logger.error('[DB] [UserStats] Could not execute quantity of last users. Reason: %r', e)

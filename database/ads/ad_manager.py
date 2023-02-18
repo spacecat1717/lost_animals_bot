@@ -51,7 +51,7 @@ class AdManager:
         Log.logger.info('[DB] [AdManager] Ads of user %r have been gotten', user_id)
         return ads
 
-    async def get_with_filters(self, user_id: int, filters: list[dict]) -> List[Ad]:
+    async def get_with_filters(self, filters: list[dict]) -> List[Ad]:
         """Thing that can make sql request with custom filters
         IDK how to do it"""
         pattern = ''
@@ -62,15 +62,17 @@ class AdManager:
             "SELECT * FROM ads WHERE {}"
         )
         sql = command.format(pattern)
+        print(pattern)
+        print(sql)
         async with self._connection as conn:
             res = await conn.fetch(sql)
         ads: List[Ad] = []
         for r in res:
-            ad = await self._create_ad_instance(type=r[1], owner_id=user_id, location=r[3], creation_date=r[4],
+            ad = await self._create_ad_instance(type=r[1], owner_id=r[2], location=r[3], creation_date=r[4],
                                                 photo_path=r[5], name=r[6], species=r[7], description=r[8], chip=r[9],
                                                 found=r[10], found_reason=r[11], city=r[12], district=r[13], ad_id=r[0])
             ads.append(ad)
-        Log.logger.info('[DB] [AdManager] by filters %r for user %r received', *filters, user_id)
+        Log.logger.info('[DB] [AdManager] by filters received')
         return ads
 
 
@@ -79,11 +81,11 @@ class AdManager:
 
 
 
-m = AdManager()
+#m = AdManager()
 #dog = asyncio.run(m.create_ad(type='lost', species='Dog', name='Jack ', city='NY', district='Brooklin', description='I lost him(', chip=True,
 #                        location='23.23563.23563,4526.265', owner_id=312472285,
 #                        photo_path='/home/spacecat/CODE/Pet/lost_animals_bot/src/photos/sajad-nori-s1puI2BWQzQ-unsplash.jpg'))
 #print(dog.name, dog.ad_id)
 #lst = asyncio.run(m.get_user_ads(252526))
 #print(lst[-1].name)
-#asyncio.run(m.get_with_filters([{'name': 'species', 'value': 'Cat'}, {'name': 'type', 'value': 'lost'}]))
+#asyncio.run(m.get_with_filters([{'name': 'species', 'value': 'Cat'}, {'name': 'city', 'value': 'Moscow'}]))

@@ -55,9 +55,9 @@ class AdStats:
                 if res:
                     ads_data.extend(res)
             for a in ads_data:
-                ads.append(Ad(ad_id=a[0], type=a[1], owner_id=a[2], location=a[3], creation_date=a[4], photo1_path=a[5],
-                              photo2_path=a[6], photo3_path=a[7], name=a[8], species=a[9], description=a[10], chip=a[11],
-                              found=a[12], found_reason=a[13], city=a[14], district=a[15]))
+                ads.append(Ad(ad_id=a[0], type=a[1], owner_id=a[2], location=a[3], creation_date=a[4], photo_path=a[5],
+                              name=a[6], species=a[7], description=a[8], chip=a[9], found=a[10], found_reason=a[11],
+                              city=a[12], district=a[13]))
             Log.logger.info('[DB] [AdStats] Ads for the last 7 days received')
             return ads
 

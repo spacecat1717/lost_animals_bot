@@ -43,8 +43,6 @@ class CreateTables:
             location TEXT,\
             date DATE,\
             photo1 TEXT,\
-            photo2 TEXT,\
-            photo3 TEXT,\
             name VARCHAR(64) NOT NULL,\
             species VARCHAR(16) NOT NULL,\
             description TEXT,\

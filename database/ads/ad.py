@@ -10,8 +10,8 @@ from database.connection import Connection
 
 class Ad:
     def __init__(self, type: str, owner_id=0, city='', district='', location='',
-                 creation_date=date.today(), photo1_path='', species='',
-                 photo2_path='', photo3_path='', name='', description='', chip=False,
+                 creation_date=date.today(), photo_path='', species='',
+                 name='', description='', chip=False,
                  found=False, found_reason='', ad_id=None) -> None:
         self._connection = Connection()
         self._ad_id = ad_id
@@ -21,9 +21,7 @@ class Ad:
         self._district = district
         self._location = location
         self._creation_date = creation_date
-        self._photo_path1 = photo1_path
-        self._photo_path2 = photo2_path
-        self._photo_path3 = photo3_path
+        self._photo_path = photo_path
         self._name = name
         self._species = species
         self._description = description
@@ -72,26 +70,11 @@ class Ad:
     def _get_creation_date(self) -> date:
         return self._creation_date
 
-    def _get_photos(self) -> tuple:
-        return self._photo_path1, self._photo_path2, self._photo_path3
+    def _get_photo(self) -> str:
+        return self._photo_path
 
-    def _get_photo_1(self) -> str:
-        return self._photo_path1
-
-    def _set_photo1(self, path1: str) -> None:
-        self._photo_path1 = path1
-
-    def _get_photo_2(self) -> str:
-        return self._photo_path2
-
-    def _set_photo2(self, path2: str) -> None:
-        self._photo_path2 = path2
-
-    def _get_photo_3(self) -> str:
-        return self._photo_path3
-
-    def _set_photo3(self, path3: str) -> None:
-        self._photo_path3 = path3
+    def _set_photo(self, path: str) -> None:
+        self._photo_path = path
 
     def _get_name(self) -> str:
         return self._name
@@ -137,10 +120,7 @@ class Ad:
     district = property(_get_district, _set_district)
     location = property(_get_location, _set_location)
     creation_date = property(_get_creation_date)
-    photo1 = property(_get_photo_1, _set_photo1)
-    photo2 = property(_get_photo_2, _set_photo2)
-    photo3 = property(_get_photo_3, _set_photo3)
-    photos = property(_get_photos)
+    photo = property(_get_photo, _set_photo)
     name = property(_get_name, _set_name)
     species = property(_get_species, _set_species)
     description = property(_get_description, _set_description)
@@ -151,14 +131,13 @@ class Ad:
     async def save_ad(self) -> bool:
         """Saving data in DB"""
         command = (
-            "INSERT INTO ads(type, owner, city, district, location, date, photo1, photo2, photo3, name, species, description,\
-            chip, found, found_reason) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING id"
+            "INSERT INTO ads(type, owner, city, district, location, date, photo1, name, species, description,\
+            chip, found, found_reason) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING id"
         )
         try:
             async with self._connection as conn:
                 values = (self._type, self.owner_id, self.city, self.district, self.location, self.creation_date,
-                          self.photos[0], self.photos[1],
-                          self.photos[2], self.name, self.species, self.description, self.chip, self.found,
+                          self.photo, self.name, self.species, self.description, self.chip, self.found,
                           self.found_reason)
                 res = await conn.fetch(command, *values)
                 self.ad_id = res[0][0]

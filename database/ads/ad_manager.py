@@ -15,23 +15,20 @@ class AdManager:
         self._connection = Connection()
 
     @staticmethod
-    async def _create_ad_instance(type: str, owner_id: int, city: str, district: str, location: str, creation_date: date, photo1_path: str,
-                                  photo2_path: str, photo3_path: str, name: str, species: str, description: str,
+    async def _create_ad_instance(type: str, owner_id: int, city: str, district: str, location: str, creation_date: date, photo_path: str,
+                                  name: str, species: str, description: str,
                                   chip: bool, ad_id: int, found=False, found_reason='') -> Ad:
         ad = Ad(type=type, owner_id=owner_id, city=city, district=district, location=location,
-                creation_date=creation_date, photo1_path=photo1_path,
-                photo2_path=photo2_path, photo3_path=photo3_path, name=name, species=species, description=description,
+                creation_date=creation_date, photo_path=photo_path, name=name, species=species, description=description,
                 chip=chip, ad_id=ad_id)
         return ad
 
-    async def create_ad(self, type: str, owner_id: int, city: str, district: str, location: str, photo1_path: str,
-                        photo2_path: str, photo3_path: str, name: str, species: str, description: str,
-                        chip: bool) -> Ad or False:
+    async def create_ad(self, type: str, owner_id: int, city: str, district: str, location: str, photo_path: str,
+                        name: str, species: str, description: str, chip: bool) -> Ad or False:
         try:
-            ad = await self._create_ad_instance(type=type, owner_id=owner_id, city=city, district=district, location=location,
-                                                photo1_path=photo1_path, photo2_path=photo2_path, photo3_path=photo3_path,
-                                                name=name, species=species, description=description, chip=chip,
-                                                creation_date=date.today(), ad_id=0)
+            ad = await self._create_ad_instance(type=type, owner_id=owner_id, city=city, district=district,
+                                                location=location, photo_path=photo_path, name=name, species=species,
+                                                description=description, chip=chip, creation_date=date.today(), ad_id=0)
             await ad.save_ad()
             Log.logger.info('[DB] [AdManager] Record of ad %r has been created')
             return ad
@@ -46,12 +43,10 @@ class AdManager:
         ads: List[Ad] = []
         async with self._connection as conn:
             res = await conn.fetch(command, user_id)
-        print(res)
         for r in res:
             ad = await self._create_ad_instance(type=r[1], owner_id=user_id, location=r[3], creation_date=r[4],
-                                                photo1_path=r[5], photo2_path=r[6], photo3_path=r[7], name=r[8],
-                                                species=r[9], description=r[10], chip=r[11], found=r[12],
-                                                found_reason=r[13], city=r[14], district=r[15], ad_id=r[0])
+                                                photo_path=r[5], name=r[6], species=r[7], description=r[8], chip=r[9],
+                                                found=r[10], found_reason=r[11], city=r[12], district=r[13], ad_id=r[0])
             ads.append(ad)
         Log.logger.info('[DB] [AdManager] Ads of user %r have been gotten', user_id)
         return ads
@@ -72,9 +67,8 @@ class AdManager:
         ads: List[Ad] = []
         for r in res:
             ad = await self._create_ad_instance(type=r[1], owner_id=user_id, location=r[3], creation_date=r[4],
-                                                photo1_path=r[5], photo2_path=r[6], photo3_path=r[7], name=r[8],
-                                                species=r[9], description=r[10], chip=r[11], found=r[12],
-                                                found_reason=r[13], city=r[14], district=r[15], ad_id=r[0])
+                                                photo_path=r[5], name=r[6], species=r[7], description=r[8], chip=r[9],
+                                                found=r[10], found_reason=r[11], city=r[12], district=r[13], ad_id=r[0])
             ads.append(ad)
         Log.logger.info('[DB] [AdManager] by filters %r for user %r received', *filters, user_id)
         return ads
@@ -85,10 +79,10 @@ class AdManager:
 
 
 
-#m = AdManager()
-#cat = asyncio.run(m.create_ad(type='lost', species='Cat', name='Whiskers ', city='NY', district='Brooklin', description='I lost him(', chip=True,
-#                        location='23.23563.23563,4526.265', owner_id=312472285, photo1_path='/home/spacecat/CODE/Pet/lost_animals_bot/src/photos/sajad-nori-s1puI2BWQzQ-unsplash.jpg',
-#                        photo2_path='/home/spacecat/CODE/', photo3_path='/home/spacecat/CODE/'))
+m = AdManager()
+#dog = asyncio.run(m.create_ad(type='lost', species='Dog', name='Jack ', city='NY', district='Brooklin', description='I lost him(', chip=True,
+#                        location='23.23563.23563,4526.265', owner_id=312472285,
+#                        photo_path='/home/spacecat/CODE/Pet/lost_animals_bot/src/photos/sajad-nori-s1puI2BWQzQ-unsplash.jpg'))
 #print(dog.name, dog.ad_id)
 #lst = asyncio.run(m.get_user_ads(252526))
 #print(lst[-1].name)

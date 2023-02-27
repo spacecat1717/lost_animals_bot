@@ -17,6 +17,8 @@ TLG_TOKEN = os.getenv('TLG_TOKEN')
 TLG_OWNER = os.getenv('TLG_OWNER')
 BOT = Bot(token=TLG_TOKEN)
 DISP = Dispatcher(BOT, storage=MemoryStorage())
+TLG_DEV_NUM = os.getenv('TLG_DEV_NUM')
+TLG_DEV_NAME = os.getenv('TLG_DEV_NAME')
 
 """Yandex geocoder API token"""
 MAP_TOKEN = os.getenv('MAP_TOKEN')

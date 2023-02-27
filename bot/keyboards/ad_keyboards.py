@@ -10,3 +10,9 @@ def usr_ad_kb():
     ad_kb.row(MENU_KEY)
     return ad_kb
 
+
+def create_ad_kb():
+    kb = InlineKeyboardMarkup()
+    create = InlineKeyboardButton(text='Создать объявление', callback_data='create_ad')
+    kb.add(create)
+    return kb

@@ -23,7 +23,7 @@ async def start(message: types.Message):
 
 @DISP.callback_query_handler(lambda c: c.data == 'main_menu')
 async def return_to_main_menu(callback: types.CallbackQuery):
-    username = callback.from_user.username
+    username = callback.from_user.first_name
     await callback.message.answer(text=f'Добро пожаловать, {username}!', reply_markup=kb_main_menu())
 
 

@@ -1,9 +1,6 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-
-#Maybe it's wrong but I don't want to write this button in every single keyboard
-MENU_KEY = InlineKeyboardButton(text='Вернуться в меню', callback_data='main_menu')
-
+from bot.keyboards.const_keys import MENU_KEY, SUPPORT_KEY
 
 def kb_main_menu():
     main_kb = InlineKeyboardMarkup()
@@ -21,7 +18,3 @@ def kb_main_menu():
     return main_kb
 
 
-def kb_return_to_menu():
-    back_kb = InlineKeyboardMarkup()
-    back_kb.add(MENU_KEY)
-    return back_kb

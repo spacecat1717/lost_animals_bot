@@ -21,9 +21,13 @@ def faq_handler(dp: Dispatcher):
     DISP.register_message_handler(info_handlers.faq)
 
 
-def support_dev_handler(dp: Dispatcher):
-    DISP.register_message_handler(info_handlers.support_dev)
+def donate_dev_handler(dp: Dispatcher):
+    DISP.register_message_handler(info_handlers.donate_dev)
 
 
 def usr_ads_handler(dp: Dispatcher):
     DISP.register_message_handler(user_ads_handlers.usr_ads_list)
+
+
+def support_msg_handler(dp: Dispatcher):
+    DISP.register_message_handler(info_handlers.support_msg)
